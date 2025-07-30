@@ -16,24 +16,21 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> create(Todo todo){
-        todoRepository.save(todo);{
-            return list();
-        }
+    public Todo create(Todo todo){
+        return todoRepository.save(todo);
     }
 
     public List<Todo> list(){
-        Sort sort = (Sort) Sort.by("prioridade").descending().and();
-        Sort nome = Sort.by("nome").ascending();
-        return todoRepository.findAll(sort);
-
+        return todoRepository.findAll();
     }
-    public List<Todo> update(Todo todo){
-        todoRepository.save(todo);
-        return list();
+    public Todo update(Todo todo){
+        return todoRepository.save(todo);
     }
-    public List<Todo> delete(Long id){
-        todoRepository.deleteById(id);
-        return list();
+    public boolean delete(Long id){
+        if (todoRepository.existsById(id)){
+            todoRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
